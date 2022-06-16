@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2021 Asterios Raptis
+ * Copyright (C) 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,8 +22,42 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.astrapi69;
+package io.github.astrapi69.xml.jackson.factory;
 
-public class InitialTemplate
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+/**
+ * The factory class {@link XmlMapperFactory} for creating {@link ObjectMapper} objects for
+ * serializing java beans to xml string and deserialize xml string to java beans.
+ */
+public final class XmlMapperFactory
 {
+	private XmlMapperFactory()
+	{
+	}
+
+	/**
+	 * Factory method for create a new {@link ObjectMapper}
+	 *
+	 * @return the new {@link ObjectMapper}
+	 */
+	public static ObjectMapper newXmlMapper()
+	{
+		return new XmlMapper();
+	}
+
+	/**
+	 * Factory method for create a new {@link ObjectMapper}.
+	 *
+	 * @param module
+	 *            the module
+	 * @return the new {@link ObjectMapper}
+	 */
+	public static ObjectMapper newXmlMapper(JacksonXmlModule module)
+	{
+		return new XmlMapper(module);
+	}
+
 }
