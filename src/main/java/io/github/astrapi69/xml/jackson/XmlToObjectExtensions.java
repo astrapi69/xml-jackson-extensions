@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2022 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,10 +29,12 @@ import java.util.Objects;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 
 /**
- * The class {@link XmlToObjectExtensions}.
+ * The class {@link XmlToObjectExtensions} provides methods for convert xml string objects to java
+ * objects
  */
 public final class XmlToObjectExtensions
 {

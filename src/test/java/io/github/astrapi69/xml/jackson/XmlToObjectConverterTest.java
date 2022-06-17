@@ -24,40 +24,46 @@
  */
 package io.github.astrapi69.xml.jackson;
 
-import java.util.Objects;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Test;
 
-import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
+import io.github.astrapi69.test.object.Employee;
+import io.github.astrapi69.test.object.Person;
+import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
- * The class {@link ObjectToXmlExtensions} provides methods for convert java objects to xml string
- * objects
+ * The unit test class for the class {@link XmlToObjectConverter}
  */
-public final class ObjectToXmlExtensions
+class XmlToObjectConverterTest
 {
 
-	private ObjectToXmlExtensions()
-	{
-	}
-
 	/**
-	 * Creates from the given Object an xml string.
-	 *
-	 * @param <T>
-	 *            the generic type of the return type
-	 * @param objectToXML
-	 *            the object to xml
-	 * @return the xml string
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
+	 * Test method for {@link XmlToObjectConverter#toObject(String, Class)}
 	 */
-	public static <T> String toXml(final T objectToXML) throws JsonProcessingException
+	@Test
+	void toObject()
 	{
-		Objects.requireNonNull(objectToXML);
-		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
-		return xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToXML);
+
+		Employee actual;
+		Employee expected;
+		Person person;
+		String xmlString;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(null)
+			.about("").build();
+
+		expected = Employee.builder().id("23").person(person).build();
+
+		xmlString = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
+			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
+			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
+
+		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
+		actual = xmlToObjectConverter.toObject(xmlString, Employee.class);
+		assertNotNull(actual);
+		assertEquals(expected, actual);
 	}
 
 }
