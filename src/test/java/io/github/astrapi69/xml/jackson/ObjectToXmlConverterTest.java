@@ -27,10 +27,9 @@ package io.github.astrapi69.xml.jackson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
@@ -46,7 +45,7 @@ public class ObjectToXmlConverterTest
 	 * Test method for {@link ObjectToXmlConverter#toXml(Object)}
 	 */
 	@Test
-	public void testToXmlWithJackson() throws JsonProcessingException
+	public void testToXml()
 	{
 		String actual;
 		String expected;
@@ -65,6 +64,28 @@ public class ObjectToXmlConverterTest
 			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
 		assertNotNull(actual);
 		assertEquals(actual, expected);
+
+		NullPointerException nullPointerException = Assertions
+			.assertThrows(NullPointerException.class, () -> objectToXmlConverter.toXml(null));
+
+		Assertions.assertEquals("object is marked non-null but is null",
+			nullPointerException.getMessage());
+	}
+
+	/**
+	 * Test method for {@link ObjectToXmlConverter#toXml(Object)}
+	 */
+	@Test
+	public void testToXmlWithNullValue()
+	{
+		String actual;
+		String expected;
+		ObjectToXmlConverter objectToXmlConverter = new ObjectToXmlConverter();
+		NullPointerException nullPointerException = Assertions
+			.assertThrows(NullPointerException.class, () -> objectToXmlConverter.toXml(null));
+		expected = "object is marked non-null but is null";
+		actual = nullPointerException.getMessage();
+		assertEquals(expected, actual);
 	}
 
 	/**
