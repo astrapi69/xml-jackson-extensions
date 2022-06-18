@@ -47,7 +47,7 @@ public class ObjectToXmlExtensionsTest
 	 * Test method for {@link ObjectToXmlExtensions#toXml(Object)}
 	 */
 	@Test
-	public void testToXmlWithJackson() throws JsonProcessingException
+	public void testToXml() throws JsonProcessingException
 	{
 		String actual;
 		String expected;
@@ -60,10 +60,10 @@ public class ObjectToXmlExtensionsTest
 		employee = Employee.builder().id("23").person(person).build();
 
 		actual = ObjectToXmlExtensions.toXml(employee);
+		assertNotNull(actual);
 		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
 			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
 			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
-		assertNotNull(actual);
 		assertEquals(actual, expected);
 	}
 
