@@ -30,50 +30,50 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
- * The unit test class for the class {@link XmlToObjectConverter}
+ * The unit test class for the class {@link ObjectToXmlConverter}
  */
-class XmlToObjectConverterTest
+public class ObjectToXmlConverterTest
 {
 
 	/**
-	 * Test method for {@link XmlToObjectConverter#toObject(String, Class)}
+	 * Test method for {@link ObjectToXmlConverter#toXml(Object)}
 	 */
 	@Test
-	void toObject()
+	public void testToXmlWithJackson() throws JsonProcessingException
 	{
-		Employee actual;
-		Employee expected;
+		String actual;
+		String expected;
 		Person person;
-		String xmlString;
+		Employee employee;
 
-		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(null)
-			.about("").build();
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname(null).married(null)
+			.about(null).build();
 
-		expected = Employee.builder().id("23").person(person).build();
+		employee = Employee.builder().id("23").person(person).build();
 
-		xmlString = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
+		ObjectToXmlConverter objectToXmlConverter = new ObjectToXmlConverter();
+		actual = objectToXmlConverter.toXml(employee);
+		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
 			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
 			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
-
-		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
-		actual = xmlToObjectConverter.toObject(xmlString, Employee.class);
 		assertNotNull(actual);
-		assertEquals(expected, actual);
+		assertEquals(actual, expected);
 	}
 
 	/**
-	 * Test method for {@link XmlToObjectConverter}
+	 * Test method for {@link ObjectToXmlConverter}
 	 */
 	@Test
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();
-		beanTester.testBean(XmlToObjectConverter.class);
+		beanTester.testBean(ObjectToXmlConverter.class);
 	}
-
 }

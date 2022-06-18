@@ -22,58 +22,42 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package io.github.astrapi69.xml.jackson;
+package io.github.astrapi69.xml.jackson.factory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
-import io.github.astrapi69.test.object.Employee;
-import io.github.astrapi69.test.object.Person;
-import io.github.astrapi69.test.object.enumtype.Gender;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 
 /**
- * The unit test class for the class {@link XmlToObjectConverter}
+ * The unit test class for the class {@link XmlMapperFactory}
  */
-class XmlToObjectConverterTest
+public class XmlMapperFactoryTest
 {
 
 	/**
-	 * Test method for {@link XmlToObjectConverter#toObject(String, Class)}
+	 * Test method for {@link XmlMapperFactory#newXmlMapper(JacksonXmlModule)}
 	 */
 	@Test
-	void toObject()
+	public void testNewXmlMapper()
 	{
-		Employee actual;
-		Employee expected;
-		Person person;
-		String xmlString;
-
-		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(null)
-			.about("").build();
-
-		expected = Employee.builder().id("23").person(person).build();
-
-		xmlString = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
-			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
-
-		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
-		actual = xmlToObjectConverter.toObject(xmlString, Employee.class);
+		ObjectMapper actual;
+		JacksonXmlModule xmlModule = new JacksonXmlModule();
+		xmlModule.setDefaultUseWrapper(false);
+		actual = XmlMapperFactory.newXmlMapper(xmlModule);
 		assertNotNull(actual);
-		assertEquals(expected, actual);
 	}
 
 	/**
-	 * Test method for {@link XmlToObjectConverter}
+	 * Test method for {@link XmlMapperFactory}
 	 */
 	@Test
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();
-		beanTester.testBean(XmlToObjectConverter.class);
+		beanTester.testBean(XmlMapperFactory.class);
 	}
-
 }
