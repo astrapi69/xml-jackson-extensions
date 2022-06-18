@@ -27,6 +27,7 @@ package io.github.astrapi69.xml.jackson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
@@ -63,6 +64,33 @@ class XmlToObjectConverterTest
 		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
 		actual = xmlToObjectConverter.toObject(xmlString, Employee.class);
 		assertNotNull(actual);
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ObjectToXmlConverter#toXml(Object)}
+	 */
+	@Test
+	public void testToObjectWithNullValue()
+	{
+		String actual;
+		String expected;
+		String xmlString;
+
+		xmlString = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
+			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
+			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
+		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
+		NullPointerException nullPointerException = Assertions.assertThrows(
+			NullPointerException.class, () -> xmlToObjectConverter.toObject(null, Employee.class));
+		expected = "xmlString is marked non-null but is null";
+		actual = nullPointerException.getMessage();
+		assertEquals(expected, actual);
+
+		nullPointerException = Assertions.assertThrows(NullPointerException.class,
+			() -> xmlToObjectConverter.toObject(xmlString, null));
+		expected = "clazz is marked non-null but is null";
+		actual = nullPointerException.getMessage();
 		assertEquals(expected, actual);
 	}
 
