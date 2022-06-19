@@ -50,6 +50,9 @@ public class XmlFileToObjectExtensionsTest
 
 	/**
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, Class)}
+	 *
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	@Test
 	void toObjectFileClass() throws JsonProcessingException
@@ -73,6 +76,9 @@ public class XmlFileToObjectExtensionsTest
 
 	/**
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference)}
+	 *
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	@Test
 	void toObjectFileTypeReference() throws JsonProcessingException
@@ -99,6 +105,9 @@ public class XmlFileToObjectExtensionsTest
 
 	/**
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference, ObjectMapper)}
+	 * 
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	@Test
 	void toObjectFileTypeReferenceObjectMapper() throws JsonProcessingException
