@@ -24,10 +24,12 @@
  */
 package io.github.astrapi69.xml.jackson;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.databind.JavaType;
+import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
@@ -36,6 +38,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
+
+import java.util.List;
 
 /**
  * The unit test class for the class {@link ObjectToXmlExtensions}
@@ -66,6 +70,40 @@ public class ObjectToXmlExtensionsTest
 			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
 		assertEquals(actual, expected);
 	}
+
+	/**
+	 * Test method for {@link ObjectToXmlExtensions#toXml(Object)} with a {@link List}
+	 */
+	@Test
+	public void testToXmlWithXStreamXStreamObjectWithList() throws JsonProcessingException
+	{
+		String actual;
+		String expected;
+		Person person;
+		Person person2;
+		List<Person> personList;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		personList = ListFactory.newArrayList(person, person2);
+		actual = ObjectToXmlExtensions.toXml(personList);
+		expected = "<ArrayList>\n" + "  <item>\n" + "    <about></about>\n"
+			+ "    <gender>FEMALE</gender>\n" + "    <married>false</married>\n"
+			+ "    <name>Anna</name>\n" + "    <nickname></nickname>\n" + "  </item>\n"
+			+ "  <item>\n" + "    <about></about>\n" + "    <gender>MALE</gender>\n"
+			+ "    <married>false</married>\n" + "    <name>Anton</name>\n"
+			+ "    <nickname></nickname>\n" + "  </item>\n" + "</ArrayList>\n";
+		assertNotNull(actual);
+		assertEquals(expected, actual);
+		JavaType type = XmlMapperFactory.newXmlMapper().getTypeFactory()
+			.constructCollectionType(List.class, Person.class);
+		List<Person> personList2 = XmlToObjectExtensions.toObject(actual, type);
+		assertEquals(personList2, personList);
+	}
+
 
 	/**
 	 * Test method for {@link ObjectToXmlExtensions}

@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
@@ -92,6 +93,27 @@ public final class XmlToObjectExtensions
 	 *            the generic type of the return type
 	 * @param xmlString
 	 *            the xml
+	 * @param javaType
+	 *            the java type
+	 * @return the object
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> T toObject(final String xmlString, final JavaType javaType)
+		throws JsonProcessingException
+	{
+		Objects.requireNonNull(xmlString);
+		Objects.requireNonNull(javaType);
+		return toObject(xmlString, javaType, XmlMapperFactory.newXmlMapper());
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param xmlString
+	 *            the xml
 	 * @param typeReference
 	 *            the type reference
 	 * @param xmlMapper
@@ -107,6 +129,30 @@ public final class XmlToObjectExtensions
 		Objects.requireNonNull(typeReference);
 		Objects.requireNonNull(xmlMapper);
 		return xmlMapper.readValue(xmlString, typeReference);
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param xmlString
+	 *            the xml
+	 * @param javaType
+	 *            the java type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @return the object
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> T toObject(final String xmlString, final JavaType javaType,
+		final ObjectMapper xmlMapper) throws JsonProcessingException
+	{
+		Objects.requireNonNull(xmlString);
+		Objects.requireNonNull(javaType);
+		Objects.requireNonNull(xmlMapper);
+		return xmlMapper.readValue(xmlString, javaType);
 	}
 
 }

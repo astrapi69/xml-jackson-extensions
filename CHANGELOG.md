@@ -4,7 +4,15 @@
 Version 1.1-SNAPSHOT
 -------------
 
+ADDED:
 
+- new methods with argument JavaType in extension class XmlToObjectExtensions
+- new test dependency silly-collection in version 20.1
+- new test dependency silly-bean in version 2
+
+CHANGED:
+
+- update of test dependency test-object to new minor version 7.2
 
 Version 1
 -------------
