@@ -61,7 +61,7 @@ public class ObjectToXmlConverterTest
 		actual = objectToXmlConverter.toXml(employee);
 		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
 			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
+			+ "    <nickname/>\n" + "  </person>\n" + "  <subOrdinates/>\n" + "</Employee>\n";
 		assertNotNull(actual);
 		assertEquals(actual, expected);
 

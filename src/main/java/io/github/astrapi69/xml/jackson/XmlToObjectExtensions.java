@@ -147,7 +147,7 @@ public final class XmlToObjectExtensions
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	public static <T> T toObject(final String xmlString, final JavaType javaType,
-		final ObjectMapper xmlMapper) throws JsonProcessingException
+								 final ObjectMapper xmlMapper) throws JsonProcessingException
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(javaType);

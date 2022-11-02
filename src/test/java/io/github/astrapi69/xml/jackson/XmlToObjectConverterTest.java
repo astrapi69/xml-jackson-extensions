@@ -59,7 +59,7 @@ class XmlToObjectConverterTest
 
 		xmlString = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
 			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
+			+ "    <nickname/>\n" + "  </person>\n" + "  <subOrdinates/>\n" + "</Employee>\n";
 
 		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
 		actual = xmlToObjectConverter.toObject(xmlString, Employee.class);

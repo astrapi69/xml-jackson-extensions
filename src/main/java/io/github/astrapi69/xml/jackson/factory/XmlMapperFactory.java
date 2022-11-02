@@ -43,7 +43,7 @@ public final class XmlMapperFactory
 	 *
 	 * @return the new {@link ObjectMapper}
 	 */
-	public static ObjectMapper newXmlMapper()
+	public static XmlMapper newXmlMapper()
 	{
 		return new XmlMapper();
 	}
@@ -55,7 +55,7 @@ public final class XmlMapperFactory
 	 *            the module
 	 * @return the new {@link ObjectMapper}
 	 */
-	public static ObjectMapper newXmlMapper(JacksonXmlModule module)
+	public static XmlMapper newXmlMapper(JacksonXmlModule module)
 	{
 		return new XmlMapper(module);
 	}

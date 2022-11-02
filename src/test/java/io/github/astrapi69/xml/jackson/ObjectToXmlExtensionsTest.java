@@ -28,7 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
@@ -67,7 +69,7 @@ public class ObjectToXmlExtensionsTest
 		assertNotNull(actual);
 		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
 			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "</Employee>\n";
+			+ "    <nickname/>\n" + "  </person>\n" + "  <subOrdinates/>\n" + "</Employee>\n";
 		assertEquals(actual, expected);
 	}
 
@@ -98,8 +100,8 @@ public class ObjectToXmlExtensionsTest
 			+ "    <nickname></nickname>\n" + "  </item>\n" + "</ArrayList>\n";
 		assertNotNull(actual);
 		assertEquals(expected, actual);
-		JavaType type = XmlMapperFactory.newXmlMapper().getTypeFactory()
-			.constructCollectionType(List.class, Person.class);
+		JavaType type = JavaTypeFactory.newCollectionType(
+			XmlMapperFactory.newXmlMapper(), List.class, Person.class);
 		List<Person> personList2 = XmlToObjectExtensions.toObject(actual, type);
 		assertEquals(personList2, personList);
 	}
