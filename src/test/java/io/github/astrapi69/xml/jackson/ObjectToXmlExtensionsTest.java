@@ -27,21 +27,19 @@ package io.github.astrapi69.xml.jackson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import io.github.astrapi69.collection.list.ListFactory;
-import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
-import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 
+import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
-
-import java.util.List;
+import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
 
 /**
  * The unit test class for the class {@link ObjectToXmlExtensions}
@@ -100,8 +98,7 @@ public class ObjectToXmlExtensionsTest
 			+ "    <nickname></nickname>\n" + "  </item>\n" + "</ArrayList>\n";
 		assertNotNull(actual);
 		assertEquals(expected, actual);
-		JavaType type = JavaTypeFactory.newCollectionType(
-			XmlMapperFactory.newXmlMapper(), List.class, Person.class);
+		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
 		List<Person> personList2 = XmlToObjectExtensions.toObject(actual, type);
 		assertEquals(personList2, personList);
 	}
