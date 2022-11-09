@@ -24,12 +24,16 @@
  */
 package io.github.astrapi69.xml.jackson;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
+import lombok.NonNull;
 
 /**
  * The class {@link ObjectToXmlExtensions} provides methods for convert java objects to xml string
@@ -53,11 +57,25 @@ public final class ObjectToXmlExtensions
 	 * @throws JsonProcessingException
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
-	public static <T> String toXml(final T objectToXML) throws JsonProcessingException
+	public static <T> String toXml(final @NonNull T objectToXML) throws JsonProcessingException
 	{
-		Objects.requireNonNull(objectToXML);
 		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
 		return xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToXML);
+	}
+
+	/**
+	 * Converts the given object to a xml string and write it to the given file object
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param object
+	 *            the object to convert to xml
+	 * @param file
+	 *            the file object
+	 */
+	public static <T> void toXml(final @NonNull T object, final @NonNull File file) throws IOException {
+		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
+		xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object);
 	}
 
 }
