@@ -8,7 +8,7 @@ ADDED:
 
 - new interface XmlFileToObject that implements specific jackson conversion types
 - new class ObjectToXmlFileConverter for convert an object to and saves it to a xml file
-- new class XmlFileToObjectConverter for convert a xml file to and saves it to an object 
+- new class XmlFileToObjectConverter for convert a xml file to and saves it to an object
 - new methods with argument JavaType in extension class XmlToObjectExtensions
 - new test dependency silly-collection in version 20.1
 - new test dependency silly-bean in version 2

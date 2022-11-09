@@ -24,30 +24,50 @@
  */
 package io.github.astrapi69.xml.jackson;
 
-import io.github.astrapi69.xml.api.ObjectToXmlFile;
-import lombok.NonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
+import java.util.HashSet;
+
+import org.junit.jupiter.api.Test;
+
+import io.github.astrapi69.file.search.PathFinder;
+import io.github.astrapi69.test.object.Employee;
+import io.github.astrapi69.test.object.Person;
+import io.github.astrapi69.test.object.enumtype.Gender;
 
 /**
- * The class {@link ObjectToXmlFileConverter} provides a single method for convert an object to a
- * xml file
+ * The unit test class for the class {@link XmlFileToObjectConverter}
  */
-public class ObjectToXmlFileConverter implements ObjectToXmlFile
+public class XmlFileToObjectConverterTest
 {
 
+
 	/**
-	 * Converts the given object to a xml string
-	 *
-	 * @param <T>
-	 *            the generic type of the return type
-	 * @param object
-	 *            the object to convert to xml
-	 * @return the xml string from the given object
+	 * Test method for {@link XmlFileToObjectConverter#toObject(File, Class)}
 	 */
-	@Override
-	public <T> void toXml(final @NonNull T object, final @NonNull File file)
+	@Test
+	void toObjectFileClass()
 	{
-		ObjectToXmlExtensions.toXml(object, file);
+		Employee actual;
+		Employee expected;
+		File xmlFile;
+		Person person;
+		Employee employee;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(null)
+			.about("").build();
+
+		employee = Employee.builder().id("23").person(person).subOrdinates(new HashSet<>()).build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(),
+			"new-employee.xml");
+		XmlFileToObjectConverter converter = new XmlFileToObjectConverter();
+		actual = converter.toObject(xmlFile, Employee.class);
+		assertNotNull(actual);
+		expected = employee;
+		assertEquals(actual, expected);
+
 	}
 }

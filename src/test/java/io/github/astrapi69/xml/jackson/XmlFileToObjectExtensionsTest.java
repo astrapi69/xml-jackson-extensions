@@ -29,6 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
@@ -50,12 +52,9 @@ public class XmlFileToObjectExtensionsTest
 
 	/**
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, Class)}
-	 *
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	@Test
-	void toObjectFileClass() throws JsonProcessingException
+	void toObjectFileClass()
 	{
 		Employee actual;
 		Employee expected;
@@ -76,12 +75,9 @@ public class XmlFileToObjectExtensionsTest
 
 	/**
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference)}
-	 *
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	@Test
-	void toObjectFileTypeReference() throws JsonProcessingException
+	void toObjectFileTypeReference()
 	{
 		Employee actual;
 		Employee expected;
@@ -104,13 +100,10 @@ public class XmlFileToObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference, ObjectMapper)}
-	 * 
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
+	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference, XmlMapper)}
 	 */
 	@Test
-	void toObjectFileTypeReferenceObjectMapper() throws JsonProcessingException
+	void toObjectFileTypeReferenceObjectMapper()
 	{
 		Employee actual;
 		Employee expected;
