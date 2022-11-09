@@ -27,16 +27,19 @@ package io.github.astrapi69.xml.jackson;
 import java.io.File;
 import java.util.Objects;
 
+import lombok.NonNull;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import io.github.astrapi69.file.read.ReadFileExtensions;
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
+import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 
 /**
- * The class {@link XmlFileToObjectExtensions} provides algorithms for transform a given xml file to
- * a java object
+ * The class {@link XmlFileToObjectExtensions} provides methods for convert xml string objects to
+ * java objects
  */
 public final class XmlFileToObjectExtensions
 {
@@ -46,75 +49,97 @@ public final class XmlFileToObjectExtensions
 	}
 
 	/**
-	 * Creates from the given xml file a java object
+	 * Creates from the given xml string an java object.
 	 *
 	 * @param <T>
 	 *            the generic type of the return type
-	 * @param xmlFile
-	 *            the xml file
+	 * @param file
+	 *            the file object
 	 * @param clazz
 	 *            the class of the generic type
-	 * @return the created object from the given xml file
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
+	 * @return the object
 	 */
-	public static <T> T toObject(final File xmlFile, final Class<T> clazz)
-		throws JsonProcessingException
+	public static <T> T toObject(final @NonNull File file, final @NonNull Class<T> clazz)
 	{
-		Objects.requireNonNull(xmlFile);
-		Objects.requireNonNull(clazz);
-		final String xmlString = RuntimeExceptionDecorator
-			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
-		return XmlToObjectExtensions.toObject(xmlString, clazz);
+		return RuntimeExceptionDecorator
+			.decorate(() -> XmlMapperFactory.newXmlMapper().readValue(file, clazz));
 	}
 
 	/**
-	 * Creates from the given xml file a java object
+	 * Creates from the given xml string an java object.
 	 *
 	 * @param <T>
 	 *            the generic type of the return type
-	 * @param xmlFile
-	 *            the xml file
+	 * @param file
+	 *            the file object
 	 * @param typeReference
 	 *            the type reference
-	 * @return the created object from the given xml file
+	 * @return the object
 	 * @throws JsonProcessingException
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
-	public static <T> T toObject(final File xmlFile, final TypeReference<T> typeReference)
-		throws JsonProcessingException
+	public static <T> T toObject(final @NonNull File file,
+		final @NonNull TypeReference<T> typeReference)
 	{
-		Objects.requireNonNull(xmlFile);
-		Objects.requireNonNull(typeReference);
-		final String xmlString = RuntimeExceptionDecorator
-			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
-		return XmlToObjectExtensions.toObject(xmlString, typeReference);
+		return toObject(file, typeReference, XmlMapperFactory.newXmlMapper());
 	}
 
 	/**
-	 * Creates from the given xml file a java object
+	 * Creates from the given xml string an java object.
 	 *
 	 * @param <T>
 	 *            the generic type of the return type
-	 * @param xmlFile
-	 *            the xml file
+	 * @param file
+	 *            the file object
+	 * @param javaType
+	 *            the java type
+	 * @return the object
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> T toObject(final @NonNull File file, final @NonNull JavaType javaType)
+	{
+		return toObject(file, javaType, XmlMapperFactory.newXmlMapper());
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param file
+	 *            the file object
 	 * @param typeReference
 	 *            the type reference
 	 * @param xmlMapper
 	 *            the xml mapper
-	 * @return the created object from the given xml file
-	 * @throws JsonProcessingException
-	 *             is thrown when processing json content that are not pure I/O problems
+	 * @return the object
 	 */
-	public static <T> T toObject(final File xmlFile, final TypeReference<T> typeReference,
-		final ObjectMapper xmlMapper) throws JsonProcessingException
+	public static <T> T toObject(final @NonNull File file,
+		final @NonNull TypeReference<T> typeReference, final @NonNull XmlMapper xmlMapper)
 	{
-		Objects.requireNonNull(xmlFile);
-		Objects.requireNonNull(typeReference);
+		return RuntimeExceptionDecorator.decorate(() -> xmlMapper.readValue(file, typeReference));
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param file
+	 *            the file object
+	 * @param javaType
+	 *            the java type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @return the object
+	 */
+	public static <T> T toObject(final @NonNull File file, final @NonNull JavaType javaType,
+		final @NonNull XmlMapper xmlMapper)
+	{
+		Objects.requireNonNull(javaType);
 		Objects.requireNonNull(xmlMapper);
-		final String xmlString = RuntimeExceptionDecorator
-			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
-		return XmlToObjectExtensions.toObject(xmlString, typeReference, xmlMapper);
+		return RuntimeExceptionDecorator.decorate(() -> xmlMapper.readValue(file, javaType));
 	}
 
 }

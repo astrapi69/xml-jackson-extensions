@@ -25,15 +25,14 @@
 package io.github.astrapi69.xml.jackson;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
+
+import lombok.NonNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
-import lombok.NonNull;
 
 /**
  * The class {@link ObjectToXmlExtensions} provides methods for convert java objects to xml string
@@ -73,9 +72,11 @@ public final class ObjectToXmlExtensions
 	 * @param file
 	 *            the file object
 	 */
-	public static <T> void toXml(final @NonNull T object, final @NonNull File file) throws IOException {
+	public static <T> void toXml(final @NonNull T object, final @NonNull File file)
+	{
 		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
-		xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object);
+		RuntimeExceptionDecorator
+			.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
 	}
 
 }
