@@ -108,8 +108,7 @@ public class XmlFileToObjectConverterTest
 	}
 
 	/**
-	 * Test method for {@link XmlFileToObjectConverter#toObject(File, JavaType)} with a
-	 * {@link List}
+	 * Test method for {@link XmlFileToObjectConverter#toObject(File, JavaType)} with a {@link List}
 	 */
 	@Test
 	public void toObjectFileJavaType() throws IOException

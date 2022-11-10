@@ -26,11 +26,12 @@ package io.github.astrapi69.xml.jackson;
 
 import java.io.File;
 
+import lombok.NonNull;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 
 import io.github.astrapi69.xml.jackson.api.JacksonXmlFileToObject;
-import lombok.NonNull;
 
 /**
  * The class {@link XmlFileToObjectConverter} can convert a given xml file to an object

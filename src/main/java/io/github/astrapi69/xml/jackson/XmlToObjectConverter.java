@@ -24,12 +24,13 @@
  */
 package io.github.astrapi69.xml.jackson;
 
+import lombok.NonNull;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import io.github.astrapi69.xml.jackson.api.JacksonXmlToObject;
-import lombok.NonNull;
 
 /**
  * The class {@link XmlToObjectConverter} can convert a given xml string to an object

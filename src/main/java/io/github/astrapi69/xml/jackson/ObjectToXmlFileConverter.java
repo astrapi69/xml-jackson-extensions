@@ -26,8 +26,8 @@ package io.github.astrapi69.xml.jackson;
 
 import java.io.File;
 
-import io.github.astrapi69.xml.api.ObjectToXmlFile;
 import lombok.NonNull;
+import io.github.astrapi69.xml.api.ObjectToXmlFile;
 
 /**
  * The class {@link ObjectToXmlFileConverter} provides a single method for convert an object to a
@@ -43,7 +43,6 @@ public class ObjectToXmlFileConverter implements ObjectToXmlFile
 	 *            the generic type of the return type
 	 * @param object
 	 *            the object to convert to xml
-	 * @return the xml string from the given object
 	 */
 	@Override
 	public <T> void toXml(final @NonNull T object, final @NonNull File file)

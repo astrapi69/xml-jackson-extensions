@@ -24,12 +24,13 @@
  */
 package io.github.astrapi69.xml.jackson.api;
 
+import lombok.NonNull;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 
 import io.github.astrapi69.xml.api.XmlFileToObject;
 import io.github.astrapi69.xml.api.XmlToObject;
-import lombok.NonNull;
 
 /**
  * If a class implements the interface {@link JacksonXmlToObject} extends the interface
