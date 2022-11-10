@@ -6,6 +6,8 @@ Version 1.1-SNAPSHOT
 
 ADDED:
 
+- new module-info.java file for module description
+- all required package-info.java files
 - new interface JacksonXmlToObject that implements specific jackson conversion types
 - new interface JacksonXmlFileToObject that implements specific jackson conversion types
 - new class ObjectToXmlFileConverter for convert an object to and saves it to a xml file
