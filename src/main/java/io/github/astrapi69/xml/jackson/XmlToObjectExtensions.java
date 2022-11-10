@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 
 /**
@@ -123,7 +124,7 @@ public final class XmlToObjectExtensions
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	public static <T> T toObject(final String xmlString, final TypeReference<T> typeReference,
-		final ObjectMapper xmlMapper) throws JsonProcessingException
+		final XmlMapper xmlMapper) throws JsonProcessingException
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(typeReference);
@@ -147,7 +148,7 @@ public final class XmlToObjectExtensions
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	public static <T> T toObject(final String xmlString, final JavaType javaType,
-		final ObjectMapper xmlMapper) throws JsonProcessingException
+		final XmlMapper xmlMapper) throws JsonProcessingException
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(javaType);

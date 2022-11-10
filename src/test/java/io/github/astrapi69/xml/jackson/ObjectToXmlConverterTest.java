@@ -59,9 +59,12 @@ public class ObjectToXmlConverterTest
 
 		ObjectToXmlConverter objectToXmlConverter = new ObjectToXmlConverter();
 		actual = objectToXmlConverter.toXml(employee);
-		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
-			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "  <subOrdinates/>\n" + "</Employee>\n";
+		expected = "<Employee>" + System.lineSeparator() + "  <id>23</id>" + System.lineSeparator()
+			+ "  <person>" + System.lineSeparator() + "    <about/>" + System.lineSeparator()
+			+ "    <gender>FEMALE</gender>" + System.lineSeparator() + "    <married/>"
+			+ System.lineSeparator() + "    <name>Anna</name>" + System.lineSeparator()
+			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
+			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
 		assertNotNull(actual);
 		assertEquals(actual, expected);
 

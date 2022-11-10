@@ -28,14 +28,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.meanbean.test.BeanTester;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+
+import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.file.delete.DeleteFileExtensions;
 import io.github.astrapi69.file.search.PathFinder;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
+import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
 
 /**
  * The unit test class for the class {@link XmlFileToObjectConverter}
@@ -69,5 +78,71 @@ public class XmlFileToObjectConverterTest
 		expected = employee;
 		assertEquals(actual, expected);
 
+	}
+
+	/**
+	 * Test method for {@link XmlFileToObjectConverter#toObject(File, TypeReference)}
+	 */
+	@Test
+	void toObjectFileTypeReference()
+	{
+		Employee actual;
+		Employee expected;
+		File xmlFile;
+		Person person;
+		Employee employee;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").about("").build();
+
+		employee = Employee.builder().id("23").person(person).build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "newtest.xml");
+		TypeReference<Employee> typeReference = new TypeReference<>()
+		{
+		};
+		XmlFileToObjectConverter converter = new XmlFileToObjectConverter();
+		actual = converter.toObject(xmlFile, typeReference);
+		assertNotNull(actual);
+		expected = employee;
+		assertEquals(actual, expected);
+	}
+
+	/**
+	 * Test method for {@link XmlFileToObjectConverter#toObject(File, JavaType)} with a
+	 * {@link List}
+	 */
+	@Test
+	public void toObjectFileJavaType() throws IOException
+	{
+		List<Person> actual;
+		List<Person> expected;
+		Person person;
+		Person person2;
+		File xmlFile;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "employees.xml");
+		expected = ListFactory.newArrayList(person, person2);
+		ObjectToXmlExtensions.toXml(expected, xmlFile);
+
+		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
+		XmlFileToObjectConverter converter = new XmlFileToObjectConverter();
+		actual = converter.toObject(xmlFile, type);
+		assertEquals(actual, expected);
+		DeleteFileExtensions.delete(xmlFile);
+	}
+
+	/**
+	 * Test method for {@link XmlFileToObjectConverter}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(XmlFileToObjectConverter.class);
 	}
 }

@@ -24,19 +24,18 @@
  */
 package io.github.astrapi69.xml.jackson;
 
+import java.io.File;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
-import io.github.astrapi69.xml.jackson.api.XmlFileToObject;
-import lombok.NonNull;
-import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
-import io.github.astrapi69.xml.api.XmlToObject;
 
-import java.io.File;
+import io.github.astrapi69.xml.jackson.api.JacksonXmlFileToObject;
+import lombok.NonNull;
 
 /**
  * The class {@link XmlFileToObjectConverter} can convert a given xml file to an object
  */
-public class XmlFileToObjectConverter implements XmlFileToObject
+public class XmlFileToObjectConverter implements JacksonXmlFileToObject
 {
 
 	/**

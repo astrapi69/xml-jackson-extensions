@@ -28,20 +28,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.file.delete.DeleteFileExtensions;
 import io.github.astrapi69.file.search.PathFinder;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
+import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 
 /**
@@ -103,7 +106,7 @@ public class XmlFileToObjectExtensionsTest
 	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, TypeReference, XmlMapper)}
 	 */
 	@Test
-	void toObjectFileTypeReferenceObjectMapper()
+	void toObjectFileTypeReferenceWithXmlMapper()
 	{
 		Employee actual;
 		Employee expected;
@@ -124,6 +127,62 @@ public class XmlFileToObjectExtensionsTest
 		assertNotNull(actual);
 		expected = employee;
 		assertEquals(actual, expected);
+	}
+
+	/**
+	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, JavaType)} with a
+	 * {@link List}
+	 */
+	@Test
+	public void toObjectFileJavaType() throws IOException
+	{
+		List<Person> actual;
+		List<Person> expected;
+		Person person;
+		Person person2;
+		File xmlFile;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "employees.xml");
+		expected = ListFactory.newArrayList(person, person2);
+		ObjectToXmlExtensions.toXml(expected, xmlFile);
+
+		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
+		actual = XmlFileToObjectExtensions.toObject(xmlFile, type);
+		assertEquals(actual, expected);
+		DeleteFileExtensions.delete(xmlFile);
+	}
+
+	/**
+	 * Test method for {@link XmlFileToObjectExtensions#toObject(File, JavaType, XmlMapper)} with a
+	 * {@link List}
+	 */
+	@Test
+	public void toObjectFileJavaTypeWithXmlMapper() throws IOException
+	{
+		List<Person> actual;
+		List<Person> expected;
+		Person person;
+		Person person2;
+		File xmlFile;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "employees.xml");
+		expected = ListFactory.newArrayList(person, person2);
+		ObjectToXmlExtensions.toXml(expected, xmlFile);
+
+		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
+		actual = XmlFileToObjectExtensions.toObject(xmlFile, type, XmlMapperFactory.newXmlMapper());
+		assertEquals(actual, expected);
+		DeleteFileExtensions.delete(xmlFile);
 	}
 
 	/**

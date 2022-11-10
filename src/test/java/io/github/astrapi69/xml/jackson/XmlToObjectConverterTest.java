@@ -27,6 +27,17 @@ package io.github.astrapi69.xml.jackson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.file.delete.DeleteFileExtensions;
+import io.github.astrapi69.file.read.ReadFileExtensions;
+import io.github.astrapi69.file.search.PathFinder;
+import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
+import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
+import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
@@ -34,6 +45,11 @@ import org.meanbean.test.BeanTester;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * The unit test class for the class {@link XmlToObjectConverter}
@@ -68,7 +84,7 @@ class XmlToObjectConverterTest
 	}
 
 	/**
-	 * Test method for {@link ObjectToXmlConverter#toXml(Object)}
+	 * Test method for {@link XmlToObjectConverter#toObject(String, Class)}
 	 */
 	@Test
 	public void testToObjectWithNullValue()
@@ -88,10 +104,72 @@ class XmlToObjectConverterTest
 		assertEquals(expected, actual);
 
 		nullPointerException = Assertions.assertThrows(NullPointerException.class,
-			() -> xmlToObjectConverter.toObject(xmlString, null));
+			() -> xmlToObjectConverter.toObject(xmlString, (Class<Object>)null));
 		expected = "clazz is marked non-null but is null";
 		actual = nullPointerException.getMessage();
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link XmlToObjectConverter#toObject(String, TypeReference)}
+	 */
+	@Test
+	void toObjectXmlStringTypeReference()
+	{
+		Employee actual;
+		Employee expected;
+		File xmlFile;
+		Person person;
+		Employee employee;
+		String xmlString;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").about("").build();
+
+		employee = Employee.builder().id("23").person(person).build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "newtest.xml");
+		TypeReference<Employee> typeReference = new TypeReference<>()
+		{
+		};
+		xmlString = RuntimeExceptionDecorator
+			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
+		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
+		actual = xmlToObjectConverter.toObject(xmlString, typeReference);
+		assertNotNull(actual);
+		expected = employee;
+		assertEquals(actual, expected);
+	}
+
+	/**
+	 * Test method for {@link XmlToObjectConverter#toObject(String, JavaType)} with a {@link List}
+	 */
+	@Test
+	public void toObjectXmlStringJavaType() throws IOException
+	{
+		List<Person> actual;
+		List<Person> expected;
+		Person person;
+		Person person2;
+		File xmlFile;
+		String xmlString;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "employees.xml");
+		expected = ListFactory.newArrayList(person, person2);
+		ObjectToXmlExtensions.toXml(expected, xmlFile);
+
+		xmlString = RuntimeExceptionDecorator
+			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
+
+		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
+		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
+		actual = xmlToObjectConverter.toObject(xmlString, type);
+		assertEquals(actual, expected);
+		DeleteFileExtensions.delete(xmlFile);
 	}
 
 	/**

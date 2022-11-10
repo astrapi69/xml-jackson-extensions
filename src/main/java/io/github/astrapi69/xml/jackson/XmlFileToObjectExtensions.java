@@ -27,8 +27,6 @@ package io.github.astrapi69.xml.jackson;
 import java.io.File;
 import java.util.Objects;
 
-import lombok.NonNull;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
@@ -36,6 +34,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
+import lombok.NonNull;
 
 /**
  * The class {@link XmlFileToObjectExtensions} provides methods for convert xml string objects to

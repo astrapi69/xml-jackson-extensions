@@ -65,9 +65,12 @@ public class ObjectToXmlExtensionsTest
 
 		actual = ObjectToXmlExtensions.toXml(employee);
 		assertNotNull(actual);
-		expected = "<Employee>\n" + "  <id>23</id>\n" + "  <person>\n" + "    <about/>\n"
-			+ "    <gender>FEMALE</gender>\n" + "    <married/>\n" + "    <name>Anna</name>\n"
-			+ "    <nickname/>\n" + "  </person>\n" + "  <subOrdinates/>\n" + "</Employee>\n";
+		expected = "<Employee>" + System.lineSeparator() + "  <id>23</id>" + System.lineSeparator()
+			+ "  <person>" + System.lineSeparator() + "    <about/>" + System.lineSeparator()
+			+ "    <gender>FEMALE</gender>" + System.lineSeparator() + "    <married/>"
+			+ System.lineSeparator() + "    <name>Anna</name>" + System.lineSeparator()
+			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
+			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
 		assertEquals(actual, expected);
 	}
 
@@ -90,12 +93,16 @@ public class ObjectToXmlExtensionsTest
 
 		personList = ListFactory.newArrayList(person, person2);
 		actual = ObjectToXmlExtensions.toXml(personList);
-		expected = "<ArrayList>\n" + "  <item>\n" + "    <about></about>\n"
-			+ "    <gender>FEMALE</gender>\n" + "    <married>false</married>\n"
-			+ "    <name>Anna</name>\n" + "    <nickname></nickname>\n" + "  </item>\n"
-			+ "  <item>\n" + "    <about></about>\n" + "    <gender>MALE</gender>\n"
-			+ "    <married>false</married>\n" + "    <name>Anton</name>\n"
-			+ "    <nickname></nickname>\n" + "  </item>\n" + "</ArrayList>\n";
+		expected = "<ArrayList>" + System.lineSeparator() + "  <item>" + System.lineSeparator()
+			+ "    <about></about>" + System.lineSeparator() + "    <gender>FEMALE</gender>"
+			+ System.lineSeparator() + "    <married>false</married>" + System.lineSeparator()
+			+ "    <name>Anna</name>" + System.lineSeparator() + "    <nickname></nickname>"
+			+ System.lineSeparator() + "  </item>" + System.lineSeparator() + "  <item>"
+			+ System.lineSeparator() + "    <about></about>" + System.lineSeparator()
+			+ "    <gender>MALE</gender>" + System.lineSeparator() + "    <married>false</married>"
+			+ System.lineSeparator() + "    <name>Anton</name>" + System.lineSeparator()
+			+ "    <nickname></nickname>" + System.lineSeparator() + "  </item>"
+			+ System.lineSeparator() + "</ArrayList>" + System.lineSeparator();
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
