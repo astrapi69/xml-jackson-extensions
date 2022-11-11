@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 
+import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import org.junit.jupiter.api.Test;
 
 import io.github.astrapi69.file.delete.DeleteFileExtensions;
@@ -38,6 +39,7 @@ import io.github.astrapi69.file.search.PathFinder;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.enumtype.Gender;
+import org.meanbean.test.BeanTester;
 
 /**
  * The unit test class for the class {@link ObjectToXmlFileConverter}
@@ -73,6 +75,16 @@ public class ObjectToXmlFileConverterTest
 		assertNotNull(actual);
 		expected = employee;
 		assertEquals(actual, expected);
-		DeleteFileExtensions.delete(xmlFile);
+		RuntimeExceptionDecorator.decorate(()->DeleteFileExtensions.delete(xmlFile));
+	}
+
+	/**
+	 * Test method for {@link ObjectToXmlFileConverter}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ObjectToXmlFileConverter.class);
 	}
 }
