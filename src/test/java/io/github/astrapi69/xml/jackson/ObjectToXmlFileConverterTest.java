@@ -75,7 +75,7 @@ public class ObjectToXmlFileConverterTest
 		assertNotNull(actual);
 		expected = employee;
 		assertEquals(actual, expected);
-		RuntimeExceptionDecorator.decorate(()->DeleteFileExtensions.delete(xmlFile));
+		RuntimeExceptionDecorator.decorate(() -> DeleteFileExtensions.delete(xmlFile));
 	}
 
 	/**

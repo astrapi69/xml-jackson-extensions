@@ -26,10 +26,11 @@ package io.github.astrapi69.xml.jackson;
 
 import java.io.File;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.NonNull;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
@@ -58,7 +59,7 @@ public final class ObjectToXmlExtensions
 	 */
 	public static <T> String toXml(final @NonNull T objectToXML) throws JsonProcessingException
 	{
-		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
+		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
 		return xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToXML);
 	}
 
@@ -74,7 +75,7 @@ public final class ObjectToXmlExtensions
 	 */
 	public static <T> void toXml(final @NonNull T object, final @NonNull File file)
 	{
-		ObjectMapper xmlMapper = XmlMapperFactory.newXmlMapper();
+		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
 		RuntimeExceptionDecorator
 			.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
 	}

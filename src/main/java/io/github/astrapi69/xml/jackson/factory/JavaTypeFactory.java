@@ -24,12 +24,14 @@
  */
 package io.github.astrapi69.xml.jackson.factory;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NonNull;
 
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 /**
@@ -38,6 +40,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
  */
 public class JavaTypeFactory
 {
+	private JavaTypeFactory()
+	{
+	}
+
 
 	/**
 	 * Factory method for create a new {@link JavaType} from the given xml mapper, the collection
@@ -49,7 +55,7 @@ public class JavaTypeFactory
 	 *            the collection class
 	 * @param elementClass
 	 *            the element class
-	 * @return the new {@link ObjectMapper}
+	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newCollectionType(final @NonNull XmlMapper xmlMapper,
 		final @NonNull Class<? extends Collection> collectionClass,
@@ -66,13 +72,105 @@ public class JavaTypeFactory
 	 *            the collection class
 	 * @param elementClass
 	 *            the element class
-	 * @return the new {@link ObjectMapper}
+	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newCollectionType(
 		final @NonNull Class<? extends Collection> collectionClass,
 		final @NonNull Class<?> elementClass)
 	{
 		return newCollectionType(XmlMapperFactory.newXmlMapper(), collectionClass, elementClass);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the map class and
+	 * the key java type and value java type
+	 *
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param mapClass
+	 *            the map class
+	 * @param keyType
+	 *            the key type
+	 * @param valueType
+	 *            the value type
+	 * @return the new {@link JavaType}
+	 */
+	public static JavaType newMapType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull Class<?> mapClass, final @NonNull JavaType keyType,
+		final @NonNull JavaType valueType)
+	{
+		return xmlMapper.getTypeFactory().constructMapLikeType(mapClass, keyType, valueType);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the map class and
+	 * the key java type and value java type
+	 *
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param mapClass
+	 *            the map class
+	 * @param keyClass
+	 *            the key class
+	 * @param valueClass
+	 *            the value class
+	 * @return the new {@link JavaType}
+	 */
+	public static JavaType newMapType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull Class<?> mapClass, final @NonNull Class<?> keyClass,
+		final @NonNull Class<?> valueClass)
+	{
+		return xmlMapper.getTypeFactory().constructMapLikeType(mapClass, keyClass, valueClass);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
+	 * type
+	 *
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param type
+	 *            the type
+	 * @return the new {@link JavaType}
+	 */
+	public static JavaType newJavaType(final @NonNull XmlMapper xmlMapper, final @NonNull Type type)
+	{
+		return xmlMapper.getTypeFactory().constructType(type);
+	}
+
+	/**
+	 * Factory method for create a new {@link TypeReference} from the given type class
+	 *
+	 * @param typeClass
+	 *            the type class
+	 * @return the new {@link TypeReference}
+	 */
+	public static <T> TypeReference<T> newTypeReference(final @NonNull Class<T> typeClass)
+	{
+		return new TypeReference<T>()
+		{
+			@Override
+			public Type getType()
+			{
+				return typeClass;
+			}
+		};
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
+	 * type reference
+	 *
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param typeReference
+	 *            the type reference
+	 * @return the new {@link JavaType}
+	 */
+	public static <T> JavaType newJavaType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull TypeReference<T> typeReference)
+	{
+		return xmlMapper.getTypeFactory().constructType(typeReference);
 	}
 
 }

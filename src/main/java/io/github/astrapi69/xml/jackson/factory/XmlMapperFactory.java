@@ -24,13 +24,13 @@
  */
 package io.github.astrapi69.xml.jackson.factory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 /**
- * The factory class {@link XmlMapperFactory} for creating {@link ObjectMapper} objects for
- * serializing java beans to xml string and deserialize xml string to java beans.
+ * The factory class {@link XmlMapperFactory} for creating {@link XmlMapper} objects for serializing
+ * java beans to xml string and deserialize xml string to java beans.
  */
 public final class XmlMapperFactory
 {
@@ -39,9 +39,9 @@ public final class XmlMapperFactory
 	}
 
 	/**
-	 * Factory method for create a new {@link ObjectMapper}
+	 * Factory method for create a new {@link XmlMapper}
 	 *
-	 * @return the new {@link ObjectMapper}
+	 * @return the new {@link XmlMapper}
 	 */
 	public static XmlMapper newXmlMapper()
 	{
@@ -49,11 +49,11 @@ public final class XmlMapperFactory
 	}
 
 	/**
-	 * Factory method for create a new {@link ObjectMapper}.
+	 * Factory method for create a new {@link XmlMapper}
 	 *
 	 * @param module
 	 *            the module
-	 * @return the new {@link ObjectMapper}
+	 * @return the new {@link XmlMapper}
 	 */
 	public static XmlMapper newXmlMapper(JacksonXmlModule module)
 	{

@@ -26,10 +26,11 @@ package io.github.astrapi69.xml.jackson.factory;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
 
 /**
@@ -44,7 +45,7 @@ public class XmlMapperFactoryTest
 	@Test
 	public void testNewXmlMapper()
 	{
-		ObjectMapper actual;
+		XmlMapper actual;
 		JacksonXmlModule xmlModule = new JacksonXmlModule();
 		xmlModule.setDefaultUseWrapper(false);
 		actual = XmlMapperFactory.newXmlMapper(xmlModule);

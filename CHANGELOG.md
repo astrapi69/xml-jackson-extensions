@@ -4,7 +4,17 @@
 Version 1.2-SNAPSHOT
 -------------
 
+ADDED:
 
+- new factory methods in class JavaTypeFactory for map
+
+CHANGED:
+
+- update of gradle to new version 7.6-rc-4
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new minor version 0.44.0
+- update of gradle-plugin dependency of 'io.freefair.gradle:lombok-plugin' in version 6.6-rc1
+- update of dependency jackson to new minor version 2.14.1
+- update of dependency file-worker to new patch version 11.6
 
 Version 1.1
 -------------

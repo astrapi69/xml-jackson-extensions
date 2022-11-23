@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -119,15 +120,15 @@ class XmlToObjectConverterTest
 		Person person;
 		Employee employee;
 		String xmlString;
+		TypeReference<Employee> typeReference;
 
 		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").about("").build();
 
 		employee = Employee.builder().id("23").person(person).build();
 
 		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "newtest.xml");
-		TypeReference<Employee> typeReference = new TypeReference<>()
-		{
-		};
+
+		typeReference = JavaTypeFactory.newTypeReference(Employee.class);
 		xmlString = RuntimeExceptionDecorator
 			.decorate(() -> ReadFileExtensions.readFromFile(xmlFile));
 		XmlToObjectConverter xmlToObjectConverter = new XmlToObjectConverter();
