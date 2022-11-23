@@ -7,6 +7,8 @@ license {
     excludes(["**/README",
               "**/README.md",
               "**/LICENSE",
+              "**/module-info.java",
+              "**/package-info.java",
               "**/NOTICE",
               "**/*.xml",
               "**/*.xsl",
