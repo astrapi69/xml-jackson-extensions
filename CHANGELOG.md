@@ -19,6 +19,7 @@ CHANGED:
 - update of dependency file-worker to new patch version 11.6
 - update of test dependency silly-collection to new major version 21
 - update of test dependency junit-jupiter-api to new minor version 5.9.2
+- update of test dependency 'com.github.meanbeanlib:meanbean' to new version 3.0.0-M9
 
 Version 1.1
 -------------

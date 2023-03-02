@@ -15,7 +15,7 @@ dependencies {
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-guava:$jacksonVersion")
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion")
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-json-org:$jacksonVersion")
-    testImplementation("org.meanbean:meanbean:$meanbeanVersion")
+    testImplementation("com.github.meanbeanlib:meanbean:$meanbeanVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
