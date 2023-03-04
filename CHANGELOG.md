@@ -7,6 +7,8 @@ Version 1.2-SNAPSHOT
 ADDED:
 
 - new factory methods in class JavaTypeFactory for map
+- new converter class for convert json to xml
+- new factory class ObjectMapperFactory for create ObjectMapper objects
 
 CHANGED:
 
