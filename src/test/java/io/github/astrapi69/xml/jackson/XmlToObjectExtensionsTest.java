@@ -30,7 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
@@ -41,6 +43,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.astrapi69.collection.list.ListFactory;
+import io.github.astrapi69.collection.map.MapFactory;
 import io.github.astrapi69.file.delete.DeleteFileExtensions;
 import io.github.astrapi69.file.read.ReadFileExtensions;
 import io.github.astrapi69.file.search.PathFinder;
@@ -175,6 +178,40 @@ public class XmlToObjectExtensionsTest
 			.decorate(() -> ReadFileExtensions.fromFile(xmlFile, Charset.forName("UTF-8")));
 
 		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
+		actual = XmlToObjectExtensions.toObject(xmlString, type);
+		assertEquals(actual, expected);
+		DeleteFileExtensions.delete(xmlFile);
+	}
+
+	/**
+	 * Test method for {@link XmlToObjectExtensions#toObject(String, JavaType)} with a {@link List}
+	 */
+	@Test
+	public void toObjectXmlStringJavaTypeMap() throws IOException
+	{
+		Map<String, Person> actual;
+		Map<String, Person> expected;
+		Person person;
+		Person person2;
+		File xmlFile;
+		String xmlString;
+
+		person = Person.builder().gender(Gender.FEMALE).name("Anna").nickname("").married(false)
+			.about("").build();
+		person2 = Person.builder().gender(Gender.MALE).name("Anton").nickname("").married(false)
+			.about("").build();
+
+		xmlFile = PathFinder.getRelativePath(PathFinder.getSrcTestResourcesDir(), "employees.xml");
+
+		expected = MapFactory.newLinkedHashMap();
+		expected.put("foo", person);
+		expected.put("bar", person2);
+		ObjectToXmlExtensions.toXml(expected, xmlFile);
+
+		xmlString = RuntimeExceptionDecorator
+			.decorate(() -> ReadFileExtensions.fromFile(xmlFile, Charset.forName("UTF-8")));
+
+		JavaType type = JavaTypeFactory.newMapType(Map.class, String.class, Person.class);
 		actual = XmlToObjectExtensions.toObject(xmlString, type);
 		assertEquals(actual, expected);
 		DeleteFileExtensions.delete(xmlFile);

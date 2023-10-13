@@ -4,7 +4,10 @@
 Version 2.1-SNAPSHOT
 -------------
 
+ADDED:
 
+- new factory methods in class JavaTypeFactory for map
+- new factory methods in class JavaTypeFactory generic type class
 
 Version 2
 -------------
