@@ -1,7 +1,7 @@
 ## Change log
 ----------------------
 
-Version 1.2-SNAPSHOT
+Version 2-SNAPSHOT
 -------------
 
 ADDED:
@@ -12,15 +12,17 @@ ADDED:
 
 CHANGED:
 
-- update gradle to new version 8.0.1
-- update of dependency lombok to new patch version 1.18.26
-- update of gradle-plugin dependency io.freefair.gradle:lombok-plugin to new patch version 6.6.3
-- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new minor version 0.46.0
-- update of gradle plugin dependency com.diffplug.spotless:spotless-plugin-gradle to new minor version 6.16.0
-- update of dependency jackson to new minor version 2.14.2
-- update of dependency file-worker to new patch version 11.6
-- update of test dependency silly-collection to new major version 21
-- update of test dependency junit-jupiter-api to new minor version 5.9.2
+- update of JDK to newer version 17
+- update gradle to new version 8.4
+- update of dependency lombok to new patch version 1.18.30
+- update of gradle-plugin dependency io.freefair.gradle:lombok-plugin to new patch version 8.4
+- update of gradle plugin dependency com.github.ben-manes.versions.gradle.plugin to new minor version 0.49.0
+- update of gradle-plugin dependency 'org.ajoberstar.grgit:grgit-gradle' to new version 5.2.0
+- update of gradle plugin dependency com.diffplug.spotless:spotless-plugin-gradle to new minor version 6.22.0
+- update of dependency jackson to new minor version 2.15.3
+- update of dependency file-worker to new patch version 17
+- update of test dependency silly-collection to new major version 27
+- update of test dependency junit-jupiter-api to new minor version 5.10.ß
 - update of test dependency 'com.github.meanbeanlib:meanbean' to new version 3.0.0-M9
 
 Version 1.1

@@ -1,4 +1,3 @@
-
 dependencies {
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
@@ -16,6 +15,6 @@ dependencies {
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion")
     testImplementation("com.fasterxml.jackson.datatype:jackson-datatype-json-org:$jacksonVersion")
     testImplementation("com.github.meanbeanlib:meanbean:$meanbeanVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
