@@ -24,11 +24,10 @@
  */
 package io.github.astrapi69.xml.jackson;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

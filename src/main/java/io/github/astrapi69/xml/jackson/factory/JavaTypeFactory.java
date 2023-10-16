@@ -33,7 +33,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import lombok.NonNull;
-import lombok.experimental.UtilityClass;
 
 /**
  * The factory class {@link JavaTypeFactory} for creating {@link JavaType} objects for serializing

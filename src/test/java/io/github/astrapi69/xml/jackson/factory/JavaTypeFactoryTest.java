@@ -27,7 +27,6 @@ package io.github.astrapi69.xml.jackson.factory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +37,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import io.github.astrapi69.collection.map.MapFactory;
-import io.github.astrapi69.lang.ClassExtensions;
-import io.github.astrapi69.lang.ClassType;
 import io.github.astrapi69.test.object.Person;
 import io.github.astrapi69.test.object.generic.GenericDao;
-import io.github.astrapi69.test.object.generic.PersonDao;
 
 /**
  * The unit test class for the class {@link JavaTypeFactory}
