@@ -1,8 +1,8 @@
 /**
  * The MIT License
- * <p>
+ *
  * Copyright (C) 2022 Asterios Raptis
- * <p>
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -10,10 +10,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * <p>
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * <p>
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -26,12 +26,14 @@ package io.github.astrapi69.xml.jackson.factory;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
 /**
  * The factory class {@link JavaTypeFactory} for creating {@link JavaType} objects for serializing
@@ -53,8 +55,8 @@ public class JavaTypeFactory
 	 *            the array with the type parameters to apply
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newParametricType(
-		final @NonNull Class<? extends Collection> parametrized, final Class<?>... parameterClasses)
+	public static JavaType newParametricType(final @NonNull Class<?> parametrized,
+		final Class<?>... parameterClasses)
 	{
 		return newParametricType(XmlMapperFactory.newXmlMapper(), parametrized, parameterClasses);
 	}
@@ -72,9 +74,25 @@ public class JavaTypeFactory
 	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newParametricType(final @NonNull XmlMapper xmlMapper,
-		final @NonNull Class<? extends Collection> parametrized, final Class<?>... parameterClasses)
+		final @NonNull Class<?> parametrized, final Class<?>... parameterClasses)
 	{
 		return xmlMapper.getTypeFactory().constructParametricType(parametrized, parameterClasses);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the collection
+	 * class and the element class
+	 *
+	 * @param parametrized
+	 *            the class type-erased type to parameterize
+	 * @param parameterTypes
+	 *            the array with the {@link JavaType} to apply
+	 * @return the new {@link JavaType}
+	 */
+	public static JavaType newParametricType(final @NonNull Class<?> parametrized,
+		final JavaType... parameterTypes)
+	{
+		return newParametricType(XmlMapperFactory.newXmlMapper(), parametrized, parameterTypes);
 	}
 
 	/**
@@ -90,25 +108,26 @@ public class JavaTypeFactory
 	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newParametricType(final @NonNull XmlMapper xmlMapper,
-		final @NonNull Class<? extends Collection> parametrized, final JavaType... parameterTypes)
+		final @NonNull Class<?> parametrized, final JavaType... parameterTypes)
 	{
 		return xmlMapper.getTypeFactory().constructParametricType(parametrized, parameterTypes);
 	}
 
 	/**
-	 * Factory method for create a new {@link JavaType} from the given xml mapper, the collection
-	 * class and the element class
+	 * Factory method for create a new {@link JavaType} from the given collection class and the
+	 * element class
 	 *
-	 * @param parametrized
-	 *            the class type-erased type to parameterize
-	 * @param parameterTypes
-	 *            the array with the {@link JavaType} to apply
+	 * @param collectionClass
+	 *            the collection class
+	 * @param elementClass
+	 *            the element class
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newParametricType(
-		final @NonNull Class<? extends Collection> parametrized, final JavaType... parameterTypes)
+	public static JavaType newCollectionType(
+		final @NonNull Class<? extends Collection> collectionClass,
+		final @NonNull Class<?> elementClass)
 	{
-		return newParametricType(XmlMapperFactory.newXmlMapper(), parametrized, parameterTypes);
+		return newCollectionType(XmlMapperFactory.newXmlMapper(), collectionClass, elementClass);
 	}
 
 	/**
@@ -131,41 +150,39 @@ public class JavaTypeFactory
 	}
 
 	/**
-	 * Factory method for create a new {@link JavaType} from the given collection class and the
-	 * element class
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the collection
+	 * class and the element class
 	 *
 	 * @param collectionClass
 	 *            the collection class
-	 * @param elementClass
-	 *            the element class
+	 * @param elementJavaType
+	 *            the element type
 	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newCollectionType(
 		final @NonNull Class<? extends Collection> collectionClass,
-		final @NonNull Class<?> elementClass)
+		final @NonNull JavaType elementJavaType)
 	{
-		return newCollectionType(XmlMapperFactory.newXmlMapper(), collectionClass, elementClass);
+		return newCollectionType(XmlMapperFactory.newXmlMapper(), collectionClass, elementJavaType);
 	}
 
 	/**
-	 * Factory method for create a new {@link JavaType} from the given xml mapper, the map class and
-	 * the key java type and value java type
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the collection
+	 * class and the element class
 	 *
 	 * @param xmlMapper
 	 *            the xml mapper
-	 * @param mapClass
-	 *            the map class
-	 * @param keyType
-	 *            the key type
-	 * @param valueType
-	 *            the value type
+	 * @param collectionClass
+	 *            the collection class
+	 * @param elementJavaType
+	 *            the element type
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newMapType(final @NonNull XmlMapper xmlMapper,
-		final @NonNull Class<?> mapClass, final @NonNull JavaType keyType,
-		final @NonNull JavaType valueType)
+	public static JavaType newCollectionType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull Class<? extends Collection> collectionClass,
+		final @NonNull JavaType elementJavaType)
 	{
-		return xmlMapper.getTypeFactory().constructMapLikeType(mapClass, keyType, valueType);
+		return xmlMapper.getTypeFactory().constructCollectionType(collectionClass, elementJavaType);
 	}
 
 	/**
@@ -180,7 +197,7 @@ public class JavaTypeFactory
 	 *            the value type
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newMapType(final @NonNull Class<?> mapClass,
+	public static JavaType newMapType(final @NonNull Class<? extends Map> mapClass,
 		final @NonNull JavaType keyType, final @NonNull JavaType valueType)
 	{
 		return newMapType(XmlMapperFactory.newXmlMapper(), mapClass, keyType, valueType);
@@ -194,17 +211,17 @@ public class JavaTypeFactory
 	 *            the xml mapper
 	 * @param mapClass
 	 *            the map class
-	 * @param keyClass
-	 *            the key class
-	 * @param valueClass
-	 *            the value class
+	 * @param keyType
+	 *            the key type
+	 * @param valueType
+	 *            the value type
 	 * @return the new {@link JavaType}
 	 */
 	public static JavaType newMapType(final @NonNull XmlMapper xmlMapper,
-		final @NonNull Class<?> mapClass, final @NonNull Class<?> keyClass,
-		final @NonNull Class<?> valueClass)
+		final @NonNull Class<? extends Map> mapClass, final @NonNull JavaType keyType,
+		final @NonNull JavaType valueType)
 	{
-		return xmlMapper.getTypeFactory().constructMapLikeType(mapClass, keyClass, valueClass);
+		return xmlMapper.getTypeFactory().constructMapType(mapClass, keyType, valueType);
 	}
 
 	/**
@@ -219,30 +236,71 @@ public class JavaTypeFactory
 	 *            the value class
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newMapType(final @NonNull Class<?> mapClass,
+	public static JavaType newMapType(final @NonNull Class<? extends Map> mapClass,
 		final @NonNull Class<?> keyClass, final @NonNull Class<?> valueClass)
 	{
 		return newMapType(XmlMapperFactory.newXmlMapper(), mapClass, keyClass, valueClass);
 	}
 
 	/**
-	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
-	 * type
+	 * Factory method for create a new {@link JavaType} from the given xml mapper, the map class and
+	 * the key java type and value java type
 	 *
 	 * @param xmlMapper
 	 *            the xml mapper
-	 * @param type
-	 *            the type
+	 * @param mapClass
+	 *            the map class
+	 * @param keyClass
+	 *            the key class
+	 * @param valueClass
+	 *            the value class
 	 * @return the new {@link JavaType}
 	 */
-	public static JavaType newJavaType(final @NonNull XmlMapper xmlMapper, final @NonNull Type type)
+	public static JavaType newMapType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull Class<? extends Map> mapClass, final @NonNull Class<?> keyClass,
+		final @NonNull Class<?> valueClass)
 	{
-		return xmlMapper.getTypeFactory().constructType(type);
+		return xmlMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
+	 * type reference
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param typeReference
+	 *            the type reference
+	 * @return the new {@link JavaType}
+	 */
+	public static <T> JavaType newJavaType(final @NonNull TypeReference<T> typeReference)
+	{
+		return newJavaType(XmlMapperFactory.newXmlMapper(), typeReference);
+	}
+
+	/**
+	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
+	 * type reference
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param typeReference
+	 *            the type reference
+	 * @return the new {@link JavaType}
+	 */
+	public static <T> JavaType newJavaType(final @NonNull XmlMapper xmlMapper,
+		final @NonNull TypeReference<T> typeReference)
+	{
+		return xmlMapper.getTypeFactory().constructType(typeReference);
 	}
 
 	/**
 	 * Factory method for create a new {@link TypeReference} from the given type class
 	 *
+	 * @param <T>
+	 *            the generic type
 	 * @param typeClass
 	 *            the type class
 	 * @return the new {@link TypeReference}
@@ -259,20 +317,20 @@ public class JavaTypeFactory
 		};
 	}
 
+
 	/**
 	 * Factory method for create a new {@link JavaType} from the given xml mapper with the given
-	 * type reference
+	 * type
 	 *
-	 * @param xmlMapper
-	 *            the xml mapper
-	 * @param typeReference
-	 *            the type reference
+	 * @param <T>
+	 *            the generic type
+	 * @param typeClass
+	 *            the type class
 	 * @return the new {@link JavaType}
 	 */
-	public static <T> JavaType newJavaType(final @NonNull XmlMapper xmlMapper,
-		final @NonNull TypeReference<T> typeReference)
+	public static <T> JavaType newJavaType(final @NonNull Class<T> typeClass)
 	{
-		return xmlMapper.getTypeFactory().constructType(typeReference);
+		return newJavaType(XmlMapperFactory.newXmlMapper(), newTypeReference(typeClass));
 	}
 
 }

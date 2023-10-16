@@ -9,6 +9,10 @@ ADDED:
 - new factory methods in class JavaTypeFactory for map
 - new factory methods in class JavaTypeFactory generic type class
 
+CHANGED:
+
+- increased code coverage
+
 Version 2
 -------------
 

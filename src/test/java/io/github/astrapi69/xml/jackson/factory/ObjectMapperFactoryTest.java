@@ -24,40 +24,65 @@
  */
 package io.github.astrapi69.xml.jackson.factory;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
-import com.fasterxml.jackson.dataformat.xml.JacksonXmlModule;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * The unit test class for the class {@link XmlMapperFactory}
+ * The unit test class for the class {@link ObjectMapperFactory}
  */
-public class XmlMapperFactoryTest
+public class ObjectMapperFactoryTest
 {
 
 	/**
-	 * Test method for {@link XmlMapperFactory#newXmlMapper(JacksonXmlModule)}
+	 * Test method for {@link ObjectMapperFactory#newObjectMapper()}
 	 */
 	@Test
-	public void testNewXmlMapper()
+	public void testNewObjectMapper()
 	{
-		XmlMapper actual;
-		JacksonXmlModule xmlModule = new JacksonXmlModule();
-		xmlModule.setDefaultUseWrapper(false);
-		actual = XmlMapperFactory.newXmlMapper(xmlModule);
-		assertNotNull(actual);
+		ObjectMapper actual;
+		ObjectMapper expected;
+
+		actual = ObjectMapperFactory.newObjectMapper();
+		expected = ObjectMapperFactory.newObjectMapper(false);
+		assertEquals(actual, expected);
 	}
 
 	/**
-	 * Test method for {@link XmlMapperFactory}
+	 * Test method for {@link ObjectMapperFactory#newObjectMapper(boolean)}
+	 */
+	@Test
+	public void testNewObjectMapperBoolean()
+	{
+		ObjectMapper actual;
+		ObjectMapper expected;
+
+		actual = ObjectMapperFactory.newObjectMapper(false);
+		expected = ObjectMapperFactory.newObjectMapper(false);
+		assertEquals(actual, expected);
+
+		actual = ObjectMapperFactory.newObjectMapper(false);
+		expected = ObjectMapperFactory.newObjectMapper(true);
+		assertThat(actual, not(expected));
+
+		actual = ObjectMapperFactory.newObjectMapper(true);
+		expected = ObjectMapperFactory.newObjectMapper(true);
+		assertThat(actual, not(expected));
+	}
+
+	/**
+	 * Test method for {@link ObjectMapperFactory}
 	 */
 	@Test
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();
-		beanTester.testBean(XmlMapperFactory.class);
+		beanTester.testBean(ObjectMapperFactory.class);
 	}
+
 }
