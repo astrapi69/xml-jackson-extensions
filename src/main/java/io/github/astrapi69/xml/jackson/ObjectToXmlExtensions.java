@@ -58,7 +58,7 @@ public final class ObjectToXmlExtensions
 	public static <T> String toXml(final @NonNull T objectToXML) throws JsonProcessingException
 	{
 		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
-		return xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToXML);
+		return xmlMapper.writeValueAsString(objectToXML);
 	}
 
 	/**
@@ -74,8 +74,7 @@ public final class ObjectToXmlExtensions
 	public static <T> void toXml(final @NonNull T object, final @NonNull File file)
 	{
 		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
-		RuntimeExceptionDecorator
-			.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
+		RuntimeExceptionDecorator.decorate(() -> xmlMapper.writeValue(file, object));
 	}
 
 }

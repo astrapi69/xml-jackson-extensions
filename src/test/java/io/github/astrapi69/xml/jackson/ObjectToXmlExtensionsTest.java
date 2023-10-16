@@ -71,6 +71,7 @@ public class ObjectToXmlExtensionsTest
 			+ System.lineSeparator() + "    <name>Anna</name>" + System.lineSeparator()
 			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
 			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
+		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(actual, expected);
 	}
 
@@ -104,6 +105,7 @@ public class ObjectToXmlExtensionsTest
 			+ "    <nickname></nickname>" + System.lineSeparator() + "  </item>"
 			+ System.lineSeparator() + "</ArrayList>" + System.lineSeparator();
 		assertNotNull(actual);
+		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(expected, actual);
 		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);
 		List<Person> personList2 = XmlToObjectExtensions.toObject(actual, type);

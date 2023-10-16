@@ -66,6 +66,7 @@ public class ObjectToXmlConverterTest
 			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
 			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
 		assertNotNull(actual);
+		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(actual, expected);
 
 		NullPointerException nullPointerException = Assertions
