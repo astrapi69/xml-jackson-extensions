@@ -28,10 +28,15 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.meanbean.test.BeanTester;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.github.astrapi69.collection.map.MapFactory;
 
 /**
  * The unit test class for the class {@link ObjectMapperFactory}
@@ -71,6 +76,23 @@ public class ObjectMapperFactoryTest
 		assertThat(actual, not(expected));
 
 		actual = ObjectMapperFactory.newObjectMapper(true);
+		expected = ObjectMapperFactory.newObjectMapper(true);
+		assertThat(actual, not(expected));
+	}
+
+	/**
+	 * Test method for {@link ObjectMapperFactory#newObjectMapper(java.util.Map)}
+	 */
+	@Test
+	public void testNewObjectMapperMapOfFeatureBoolean()
+	{
+		ObjectMapper actual;
+		ObjectMapper expected;
+		Map<JsonParser.Feature, Boolean> features;
+
+		features = MapFactory.newHashMap();
+		features.put(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+		actual = ObjectMapperFactory.newObjectMapper(features);
 		expected = ObjectMapperFactory.newObjectMapper(true);
 		assertThat(actual, not(expected));
 	}

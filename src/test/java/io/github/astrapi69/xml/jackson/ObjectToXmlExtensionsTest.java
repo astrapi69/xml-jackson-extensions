@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import io.github.astrapi69.collection.list.ListFactory;
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
-import io.github.astrapi69.test.object.enumtype.Gender;
+import io.github.astrapi69.test.object.enumeration.Gender;
 import io.github.astrapi69.xml.jackson.factory.JavaTypeFactory;
 
 /**
@@ -71,6 +71,7 @@ public class ObjectToXmlExtensionsTest
 			+ System.lineSeparator() + "    <name>Anna</name>" + System.lineSeparator()
 			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
 			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
+		actual = actual.replace("\n", "").replace(" ", "");
 		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(actual, expected);
 	}
@@ -105,6 +106,7 @@ public class ObjectToXmlExtensionsTest
 			+ "    <nickname></nickname>" + System.lineSeparator() + "  </item>"
 			+ System.lineSeparator() + "</ArrayList>" + System.lineSeparator();
 		assertNotNull(actual);
+		actual = actual.replace("\n", "").replace(" ", "");
 		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(expected, actual);
 		JavaType type = JavaTypeFactory.newCollectionType(List.class, Person.class);

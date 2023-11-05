@@ -33,7 +33,7 @@ import org.meanbean.test.BeanTester;
 
 import io.github.astrapi69.test.object.Employee;
 import io.github.astrapi69.test.object.Person;
-import io.github.astrapi69.test.object.enumtype.Gender;
+import io.github.astrapi69.test.object.enumeration.Gender;
 
 /**
  * The unit test class for the class {@link ObjectToXmlConverter}
@@ -66,6 +66,7 @@ public class ObjectToXmlConverterTest
 			+ "    <nickname/>" + System.lineSeparator() + "  </person>" + System.lineSeparator()
 			+ "  <subOrdinates/>" + System.lineSeparator() + "</Employee>" + System.lineSeparator();
 		assertNotNull(actual);
+		actual = actual.replace("\n", "").replace(" ", "");
 		expected = expected.replace("\n", "").replace(" ", "");
 		assertEquals(actual, expected);
 

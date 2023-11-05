@@ -75,7 +75,7 @@ public final class ObjectToXmlExtensions
 	{
 		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
 		RuntimeExceptionDecorator
-				.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
+			.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
 	}
 
 }
