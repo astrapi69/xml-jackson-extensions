@@ -8,6 +8,7 @@ CHANGED:
 
 - update of gradle-plugin dependency 'org.ajoberstar.grgit:grgit-gradle' to new version 5.2.1
 - update of dependency jackson to new minor version 2.16.0-rc1
+- update of dependency file-worker to new minor version 17.1
 - update of test dependency test-object to new minor version 8.2
 - update of test dependency junit-jupiter-api to new minor version 5.10.1
 
@@ -42,7 +43,7 @@ CHANGED:
 - update of gradle-plugin dependency 'org.ajoberstar.grgit:grgit-gradle' to new version 5.2.0
 - update of gradle plugin dependency com.diffplug.spotless:spotless-plugin-gradle to new minor version 6.22.0
 - update of dependency jackson to new minor version 2.15.3
-- update of dependency file-worker to new patch version 17
+- update of dependency file-worker to new major version 17
 - update of test dependency silly-collection to new major version 27
 - update of test dependency junit-jupiter-api to new minor version 5.10.0
 - update of test dependency 'com.github.meanbeanlib:meanbean' to new version 3.0.0-M9
