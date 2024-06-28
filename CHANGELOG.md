@@ -10,14 +10,17 @@ ADDED:
 
 CHANGED:
 
+- update gradle to new version 8.8
+- update of dependency lombok to new patch version 1.18.32
 - update of gradle-plugin dependency with id 'com.github.ben-manes.versions' to new patch version 0.51.0
 - update of gradle-plugin dependency with id 'org.ajoberstar.grgit' to new patch version 5.2.2
 - update of gradle-plugin dependency with id 'io.freefair.lombok' to new patch version 8.6
 - update of gradle-plugin dependency with id 'com.diffplug.spotless' to new beta version 7.0.0.BETA1
-- update of dependency jackson to new minor version 2.16.0-rc1
-- update of dependency file-worker to new minor version 17.1
+- update of dependency throwable to new major version 3
+- update of dependency jackson to new minor version 2.17.1
+- update of dependency file-worker to new minor version 17.2
 - update of test dependency test-object to new minor version 8.2
-- update of test dependency junit-jupiter-api to new minor version 5.10.1
+- update of test dependency junit-jupiter to new minor version 5.11.0-M2
 
 Version 2.1
 -------------
