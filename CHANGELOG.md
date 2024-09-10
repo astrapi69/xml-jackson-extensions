@@ -7,9 +7,11 @@ Version 2.2-SNAPSHOT
 ADDED:
 
 - new libs.versions.toml file for new automatic catalog versions update
+- new methods for transform object to xml with a given ObjectMapper in class ObjectToXmlExtensions
 
 CHANGED:
 
+- rename of module to new name 'io.github.astrapisixtynine.xml.jackson.extensions'
 - update gradle to new version 8.8
 - update of dependency lombok to new patch version 1.18.32
 - update of gradle-plugin dependency with id 'com.github.ben-manes.versions' to new patch version 0.51.0

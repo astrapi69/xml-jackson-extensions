@@ -27,6 +27,7 @@ package io.github.astrapi69.xml.jackson;
 import java.io.File;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.astrapi69.throwable.RuntimeExceptionDecorator;
@@ -50,7 +51,7 @@ public final class ObjectToXmlExtensions
 	 * @param <T>
 	 *            the generic type of the return type
 	 * @param objectToXML
-	 *            the object to xml
+	 *            the object that will be transformed to xml {@link String} object
 	 * @return the xml string
 	 * @throws JsonProcessingException
 	 *             is thrown when processing json content that are not pure I/O problems
@@ -66,6 +67,25 @@ public final class ObjectToXmlExtensions
 	 *
 	 * @param <T>
 	 *            the generic type of the return type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param objectToXML
+	 *            the object that will be transformed to xml {@link String} object
+	 * @return the xml string
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> String toXml(final @NonNull ObjectMapper xmlMapper,
+		final @NonNull T objectToXML) throws JsonProcessingException
+	{
+		return xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(objectToXML);
+	}
+
+	/**
+	 * Converts the given object to a xml string and write it to the given file object
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
 	 * @param object
 	 *            the object to convert to xml
 	 * @param file
@@ -73,9 +93,25 @@ public final class ObjectToXmlExtensions
 	 */
 	public static <T> void toXml(final @NonNull T object, final @NonNull File file)
 	{
-		XmlMapper xmlMapper = XmlMapperFactory.newXmlMapper();
+		toXml(XmlMapperFactory.newXmlMapper(), object, file);
+	}
+
+	/**
+	 * Converts the given object to a xml string and write it to the given file object
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param object
+	 *            the object to convert to xml
+	 * @param file
+	 *            the file object
+	 */
+	public static <T> void toXml(final @NonNull ObjectMapper xmlMapper, final @NonNull T object,
+		final @NonNull File file)
+	{
 		RuntimeExceptionDecorator
 			.decorate(() -> xmlMapper.writerWithDefaultPrettyPrinter().writeValue(file, object));
 	}
-
 }

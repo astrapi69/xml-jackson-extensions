@@ -1,7 +1,7 @@
 /**
  * Description of this module
  */
-module xml.jackson.extensions
+module io.github.astrapisixtynine.xml.jackson.extensions
 {
 	requires lombok;
 	requires com.fasterxml.jackson.core;
