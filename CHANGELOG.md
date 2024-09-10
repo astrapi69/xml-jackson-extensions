@@ -8,6 +8,7 @@ ADDED:
 
 - new libs.versions.toml file for new automatic catalog versions update
 - new methods for transform object to xml with a given ObjectMapper in class ObjectToXmlExtensions
+- new methods for transform xml to object with a given ObjectMapper in class XmlToObjectExtensions
 
 CHANGED:
 

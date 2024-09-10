@@ -29,7 +29,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.astrapi69.xml.jackson.factory.XmlMapperFactory;
 
@@ -62,7 +62,31 @@ public final class XmlToObjectExtensions
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(clazz);
-		return XmlMapperFactory.newXmlMapper().readValue(xmlString, clazz);
+		return toObject(XmlMapperFactory.newXmlMapper(), xmlString, clazz);
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param xmlString
+	 *            the xml
+	 * @param clazz
+	 *            the class of the generic type
+	 * @return the object
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> T toObject(final ObjectMapper xmlMapper, final String xmlString,
+		final Class<T> clazz) throws JsonProcessingException
+	{
+		Objects.requireNonNull(xmlMapper);
+		Objects.requireNonNull(xmlString);
+		Objects.requireNonNull(clazz);
+		return xmlMapper.readValue(xmlString, clazz);
 	}
 
 	/**
@@ -112,6 +136,30 @@ public final class XmlToObjectExtensions
 	 *
 	 * @param <T>
 	 *            the generic type of the return type
+	 * @param xmlMapper
+	 *            the xml mapper
+	 * @param xmlString
+	 *            the xml
+	 * @param javaType
+	 *            the java type
+	 * @return the object
+	 * @throws JsonProcessingException
+	 *             is thrown when processing json content that are not pure I/O problems
+	 */
+	public static <T> T toObject(final ObjectMapper xmlMapper, final String xmlString,
+		final JavaType javaType) throws JsonProcessingException
+	{
+		Objects.requireNonNull(xmlMapper);
+		Objects.requireNonNull(xmlString);
+		Objects.requireNonNull(javaType);
+		return toObject(xmlString, javaType, xmlMapper);
+	}
+
+	/**
+	 * Creates from the given xml string an java object.
+	 *
+	 * @param <T>
+	 *            the generic type of the return type
 	 * @param xmlString
 	 *            the xml
 	 * @param typeReference
@@ -123,7 +171,7 @@ public final class XmlToObjectExtensions
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	public static <T> T toObject(final String xmlString, final TypeReference<T> typeReference,
-		final XmlMapper xmlMapper) throws JsonProcessingException
+		final ObjectMapper xmlMapper) throws JsonProcessingException
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(typeReference);
@@ -147,7 +195,7 @@ public final class XmlToObjectExtensions
 	 *             is thrown when processing json content that are not pure I/O problems
 	 */
 	public static <T> T toObject(final String xmlString, final JavaType javaType,
-		final XmlMapper xmlMapper) throws JsonProcessingException
+		final ObjectMapper xmlMapper) throws JsonProcessingException
 	{
 		Objects.requireNonNull(xmlString);
 		Objects.requireNonNull(javaType);
