@@ -50,11 +50,11 @@ public final class ObjectMapperFactory
 	 */
 	public static ObjectMapper newObjectMapper()
 	{
-		return newObjectMapper(false);
+		return new ObjectMapper();
 	}
 
 	/** The constant mapper. */
-	private final static ObjectMapper OBJECT_MAPPER = newObjectMapper(true);
+	private final static ObjectMapper OBJECT_MAPPER = newObjectMapper();
 
 	/**
 	 * Factory method for create a new {@link ObjectMapper}. If the given flag is true a new
@@ -71,7 +71,7 @@ public final class ObjectMapperFactory
 	{
 		if (newMapper)
 		{
-			return new ObjectMapper();
+			return newObjectMapper();
 		}
 		return OBJECT_MAPPER;
 	}
