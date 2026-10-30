@@ -45,7 +45,8 @@ public class ObjectMapperFactoryTest
 {
 
 	/**
-	 * Test method for {@link ObjectMapperFactory#newObjectMapper()}
+	 * Test method for {@link ObjectMapperFactory#newObjectMapper()}: a new mapper on every call,
+	 * never the one {@link ObjectMapperFactory#newObjectMapper(boolean)} shares for {@code false}
 	 */
 	@Test
 	public void testNewObjectMapper()
@@ -54,8 +55,11 @@ public class ObjectMapperFactoryTest
 		ObjectMapper expected;
 
 		actual = ObjectMapperFactory.newObjectMapper();
+		expected = ObjectMapperFactory.newObjectMapper();
+		assertThat(actual, not(expected));
+
 		expected = ObjectMapperFactory.newObjectMapper(false);
-		assertEquals(actual, expected);
+		assertThat(actual, not(expected));
 	}
 
 	/**
